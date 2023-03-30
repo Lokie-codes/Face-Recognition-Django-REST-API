@@ -93,12 +93,18 @@ class Subject(models.Model):
         verbose_name_plural = "Subjects"
         ordering = ["subjectName"]
 
+def deleteRepresentationFile():
+    os.remove(f"db_path/representations_vgg_face.pkl")
 
 def renameImagePath(instance, filename):
-    name = instance.fullName.replace(" ", "_")
-    upload_to = "db_path/{}".format(instance.fullName)
+    # name = instance.fullName.replace(" ", "_")
+    usn = instance.usn
+    # upload_to = "db_path/{}".format(usn)
+    upload_to = "db_path/"
     extension = filename.split(".")[-1]
-    filename = "{}.{}".format(name, extension)
+    filename = "{}.{}".format(usn, extension)
+    # delete previous representations
+    deleteRepresentationFile()
     return os.path.join(upload_to, filename)
 
 
@@ -118,7 +124,7 @@ class Student(models.Model):
         "Section", verbose_name="section", on_delete=models.CASCADE
     )
 
-    image = models.ImageField(null=True, upload_to=renameImagePath, name="image")
+    image = models.ImageField(null=True, upload_to=renameImagePath)
     parentEmail = models.EmailField()
     subjects = models.ManyToManyField("Subject", verbose_name=("subjects"), blank=True)
 

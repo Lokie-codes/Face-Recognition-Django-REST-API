@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "corsheaders",
     # local apps
     "api.apps.ApiConfig",
+    "face.apps.FaceConfig",
 ]
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
