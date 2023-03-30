@@ -1,7 +1,7 @@
 # Path: api/models.py
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+import os
 
 
 # Create your models here.
@@ -94,6 +94,14 @@ class Subject(models.Model):
         ordering = ["subjectName"]
 
 
+def renameImagePath(instance, filename):
+    name = instance.fullName.replace(" ", "_")
+    upload_to = "db_path/{}".format(instance.fullName)
+    extension = filename.split(".")[-1]
+    filename = "{}.{}".format(name, extension)
+    return os.path.join(upload_to, filename)
+
+
 class Student(models.Model):
     usn = models.CharField(max_length=15, unique=True)
     fullName = models.CharField(max_length=250)
@@ -110,7 +118,7 @@ class Student(models.Model):
         "Section", verbose_name="section", on_delete=models.CASCADE
     )
 
-    image = models.ImageField(null=True, upload_to="db_path/")
+    image = models.ImageField(null=True, upload_to=renameImagePath, name="image")
     parentEmail = models.EmailField()
     subjects = models.ManyToManyField("Subject", verbose_name=("subjects"), blank=True)
 

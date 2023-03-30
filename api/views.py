@@ -21,8 +21,9 @@ from .serializers import (
     AttendanceSerializer,
 )
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
+
+
 # Create your views here.
 @api_view(["GET"])
 def apiOverview(request):
@@ -52,65 +53,78 @@ class CourseList(generics.ListCreateAPIView):
 
 
 class CourseDetail(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
 
 class BranchList(generics.ListCreateAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Branch.objects.all()
     serializer_class = BranchSerializer
 
 
 class BranchDetail(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Branch.objects.all()
     serializer_class = BranchSerializer
 
 
 class SemesterList(generics.ListCreateAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Semester.objects.all()
     serializer_class = SemesterSerializer
 
 
 class SemesterDetail(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Semester.objects.all()
     serializer_class = SemesterSerializer
 
 
 class SectionList(generics.ListCreateAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
 
 
 class SectionDetail(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
 
 
 class StudentList(generics.ListCreateAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
 
 class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
 
 class SubjectList(generics.ListCreateAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
 
 
 class SubjectDetail(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
 
 
 class AttendanceList(generics.ListCreateAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
 
 
 class AttendanceDetail(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = (IsAuthenticated,)
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
