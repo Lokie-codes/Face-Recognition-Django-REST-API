@@ -51,4 +51,4 @@ class SubjectSerializer(ModelSerializer):
 class AttendanceSerializer(ModelSerializer):
     class Meta:
         model = Attendance
-        fields = ["subject", "status", "date", "usn"]
+        fields = "__all__"
