@@ -142,13 +142,13 @@ class Student(models.Model):
 
 class Attendance(models.Model):
     student = models.ForeignKey(
-        "Student", verbose_name="student", on_delete=models.CASCADE
+        "Student", verbose_name="student", on_delete=models.CASCADE, to_field="usn"
     )
     subject = models.ForeignKey(
         "Subject", verbose_name="subject", on_delete=models.CASCADE
     )
     date = models.DateField()
-    status = models.BooleanField()
+    status = models.BooleanField(default=True)
 
     def __str__(self) -> str:
         return f"{self.date} {self.student} {self.subject} {self.status}"

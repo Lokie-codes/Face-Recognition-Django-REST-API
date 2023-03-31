@@ -1,12 +1,11 @@
 # Path: face/serializers.py
-import os
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from retinaface import RetinaFace
 from deepface import DeepFace
-from matplotlib import pyplot as plt
-from random import randint
+
+
 # from rest_framework.generics import GenericAPIView
 # Create your views here.
 @api_view(["GET"])
@@ -30,6 +29,7 @@ class FaceCount(APIView):
     """
     Count the number of faces in an image.
     """
+
     def post(self, request, *args, **kwargs):
         image = request.data["image"]
         faces = RetinaFace.detect_faces(image)
@@ -40,6 +40,7 @@ class FaceDetect(APIView):
     """
     Detect all the faces present in the image.
     """
+
     def post(self, request, *args, **kwargs):
         image = request.data["image"]
         faces = RetinaFace.detect_faces(image)
@@ -50,6 +51,7 @@ class FaceRecognise(APIView):
     """
     Recognise the multiple faces present in the image and compare them to database
     """
+
     def post(self, request):
         # image = request.data["image"]
         # detect all the faces present in the image
@@ -70,25 +72,9 @@ class FaceRecognise(APIView):
         #     print(result)
         image = request.data["image"]
         result = DeepFace.find(img_path=image, db_path="db_path")
-        usns = list()
+        usnlist = list()
         for ins in result[0]["identity"]:
             # remove db_path from string ins
             usn = ins.strip("db_path/ .jpeg .jpg .png")
-            usns.append(usn)
-        return Response({"result": usns})
-
-
-class FacePresent(APIView):
-    pass
-
-
-class FaceAbsent(APIView):
-    pass
-
-
-class FacePresentCount(APIView):
-    pass
-
-
-class FaceAbsentCount(APIView):
-    pass
+            usnlist.append(usn)
+        return Response({"result": usnlist})
