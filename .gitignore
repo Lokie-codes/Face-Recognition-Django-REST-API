@@ -1,0 +1,7 @@
+secret.txt
+.venv/
+api/__pycache__/
+api/migrations/
+face/__pycache__/
+face/migrations/
+face_attendance/__pycache__/
