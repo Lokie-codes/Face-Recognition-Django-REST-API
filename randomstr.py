@@ -1,4 +1,4 @@
-# program to genrate long random string
+# program to generate long random string
 
 import random
 import string
