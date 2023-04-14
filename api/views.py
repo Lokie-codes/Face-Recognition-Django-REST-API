@@ -1,6 +1,9 @@
 from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 from .models import (
     Course,
     Branch,
@@ -19,29 +22,27 @@ from .serializers import (
     SubjectSerializer,
     AttendanceSerializer,
 )
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
 
 
 # Create your views here.
 @api_view(["GET"])
 def apiOverview(request):
     api_urls = {
-        "Course List": "http://127.0.0.1:8000/api/course/",
-        "Course Detail View": "http://127.0.0.1:8000/api/course/<str:pk>/",
-        "Branch List": "http://127.0.0.1:8000/api/branch/",
-        "Branch Detail View": "http://127.0.0.1:8000/api/branch/<str:pk>/",
-        "Semester List": "http://127.0.0.1:8000/api/semester/",
-        "Semester Detail View": "http://127.0.0.1:8000/api/semester/<str:pk>/",
-        "Section List": "http://127.0.0.1:8000/api/section/",
-        "Section Detail View": "http://127.0.0.1:8000/api/section/<str:pk>/",
-        "Student List": "http://127.0.0.1:8000/api/student/",
-        "Student Detail View": "http://127.0.0.1:8000/api/student/<str:pk>/",
-        "Subject List": "http://127.0.0.1:8000/api/subject/",
-        "Subject Detail View": "http://127.0.0.1:8000/api/subject/<str:pk>/",
-        "Attendance List": "http://127.0.0.1:8000/api/attendance/",
-        "Attendance Detail View": "http://127.0.0.1:8000/api/attendance/<str:pk>/",
-        "Send Email": "http://127.0.0.1:8000/api/send_mail/",
+        "Course List": "/course/",
+        "Course Detail View": "/course/<str:pk>/",
+        "Branch List": "/branch/",
+        "Branch Detail View": "/branch/<str:pk>/",
+        "Semester List": "/semester/",
+        "Semester Detail View": "/semester/<str:pk>/",
+        "Section List": "/section/",
+        "Section Detail View": "/section/<str:pk>/",
+        "Student List": "/student/",
+        "Student Detail View": "/student/<str:pk>/",
+        "Subject List": "/subject/",
+        "Subject Detail View": "/subject/<str:pk>/",
+        "Attendance List": "/attendance/",
+        "Attendance Detail View": "/attendance/<str:pk>/",
+        "Send Email": "/send_mail/",
     }
     return Response(api_urls)
 

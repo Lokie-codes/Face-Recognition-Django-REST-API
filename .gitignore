@@ -5,3 +5,4 @@ api/migrations/
 face/__pycache__/
 face/migrations/
 face_attendance/__pycache__/
+staticfiles_build/

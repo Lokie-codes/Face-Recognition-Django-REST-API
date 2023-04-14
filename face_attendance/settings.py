@@ -28,7 +28,7 @@ DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-ALLOWED_HOSTS = ['.vercel.app', 'localhost', '.now.sh']
+ALLOWED_HOSTS = ['.vercel.app', 'localhost', '.now.sh', '.github.dev']
 
 
 # Application definition
@@ -96,12 +96,12 @@ WSGI_APPLICATION = "face_attendance.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 # Email Trigerring
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -155,5 +155,5 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-STATICFILES_DIRS = os.path.join(BASE_DIR, "static"),
+STATICFILES_DIRS = os.path.join(BASE_DIR, "staticfiles_build"),
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
