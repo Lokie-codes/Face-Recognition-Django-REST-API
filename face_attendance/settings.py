@@ -25,6 +25,8 @@ SECRET_KEY = "django-insecure-c+7&2-m246ls@35hluk(l&)80c31oz@d!_$@2nq-dw7f(cph!=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 ALLOWED_HOSTS = []
 
 
@@ -50,9 +52,9 @@ INSTALLED_APPS = [
     "api.apps.ApiConfig",
     "face.apps.FaceConfig",
 ]
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = "username"
 
 ACCOUNT_EMAIL_REQUIRED = False
 
@@ -89,7 +91,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "face_attendance.wsgi.application"
 
-CORS_ALLOW_ALL_ORIGINS = True
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -101,6 +102,14 @@ DATABASES = {
     }
 }
 
+# Email Trigerring
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'facemarkhelp@gmail.com'
+EMAIL_HOST_PASSWORD = 'owozigbrqnzcyfju'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -7,7 +7,7 @@ import os
 # Create your models here.
 class Course(models.Model):
     courseName = models.CharField(max_length=100)
-    courseCode = models.CharField(max_length=10)
+    courseCode = models.CharField(max_length=10, unique=True)
 
     def __str__(self) -> str:
         return f"{self.courseCode} {self.courseName}"
@@ -23,7 +23,7 @@ class Course(models.Model):
 
 class Branch(models.Model):
     branchName = models.CharField(max_length=100)
-    branchCode = models.CharField(max_length=10)
+    branchCode = models.CharField(max_length=10, unique=True)
 
     def __str__(self) -> str:
         return f"{self.branchCode} {self.branchName}"
@@ -38,7 +38,7 @@ class Branch(models.Model):
 
 
 class Semester(models.Model):
-    semesterName = models.IntegerField()
+    semesterName = models.IntegerField(unique=True)
     # semesterCode = models.CharField(max_length=10)
 
     def __str__(self) -> str:
@@ -54,7 +54,8 @@ class Semester(models.Model):
 
 
 class Section(models.Model):
-    sectionName = models.CharField(max_length=100)
+    sectionName = models.CharField(max_length=100, unique=True)
+
     # sectionCode = models.CharField(max_length=10)
 
     def __str__(self) -> str:
@@ -71,15 +72,24 @@ class Section(models.Model):
 
 class Subject(models.Model):
     subjectName = models.CharField(max_length=100)
-    subjectCode = models.CharField(max_length=10)
+    subjectCode = models.CharField(max_length=10, unique=True)
     course = models.ForeignKey(
-        "Course", verbose_name="course", on_delete=models.CASCADE
+        "Course",
+        verbose_name="course",
+        on_delete=models.CASCADE,
+        to_field="courseCode",
     )
     branch = models.ForeignKey(
-        "Branch", verbose_name="branch", on_delete=models.CASCADE
+        "Branch",
+        verbose_name="branch",
+        on_delete=models.CASCADE,
+        to_field="branchCode",
     )
     semester = models.ForeignKey(
-        "Semester", verbose_name="semester", on_delete=models.CASCADE
+        "Semester",
+        verbose_name="semester",
+        on_delete=models.CASCADE,
+        to_field="semesterName",
     )
 
     def __str__(self) -> str:
@@ -93,8 +103,10 @@ class Subject(models.Model):
         verbose_name_plural = "Subjects"
         ordering = ["subjectName"]
 
+
 def deleteRepresentationFile():
     os.remove(f"db_path/representations_vgg_face.pkl")
+
 
 def renameImagePath(instance, filename):
     # name = instance.fullName.replace(" ", "_")
@@ -112,21 +124,37 @@ class Student(models.Model):
     usn = models.CharField(max_length=15, unique=True)
     fullName = models.CharField(max_length=250)
     course = models.ForeignKey(
-        "Course", verbose_name="course", on_delete=models.CASCADE
+        "Course",
+        verbose_name="course",
+        on_delete=models.CASCADE,
+        to_field="courseCode",
     )
     branch = models.ForeignKey(
-        "Branch", verbose_name="branch", on_delete=models.CASCADE
+        "Branch",
+        verbose_name="branch",
+        on_delete=models.CASCADE,
+        to_field="branchCode",
     )
     semester = models.ForeignKey(
-        "Semester", verbose_name="semester", on_delete=models.CASCADE
+        "Semester",
+        verbose_name="semester",
+        on_delete=models.CASCADE,
+        to_field="semesterName",
     )
     section = models.ForeignKey(
-        "Section", verbose_name="section", on_delete=models.CASCADE
+        "Section",
+        verbose_name="section",
+        on_delete=models.CASCADE,
+        to_field="sectionName",
     )
 
     image = models.ImageField(null=True, upload_to=renameImagePath)
     parentEmail = models.EmailField()
-    subjects = models.ManyToManyField("Subject", verbose_name=("subjects"), blank=True)
+    subjects = models.ManyToManyField(
+        "Subject",
+        verbose_name=("subjects"),
+        blank=True,
+    )
 
     def __str__(self) -> str:
         return f"{self.usn} {self.fullName} {self.course} {self.branch} section - {self.section}  {self.semester} "
@@ -142,16 +170,34 @@ class Student(models.Model):
 
 class Attendance(models.Model):
     student = models.ForeignKey(
-        "Student", verbose_name="student", on_delete=models.CASCADE
+        "Student",
+        verbose_name="student",
+        on_delete=models.CASCADE,
+        to_field="usn",
     )
     subject = models.ForeignKey(
-        "Subject", verbose_name="subject", on_delete=models.CASCADE
+        "Subject",
+        verbose_name="subject",
+        on_delete=models.CASCADE,
+        to_field="subjectCode",
     )
     date = models.DateField()
     status = models.BooleanField()
+    branch = models.ForeignKey(
+        "Branch",
+        verbose_name="branch",
+        on_delete=models.CASCADE,
+        to_field="branchCode",
+    )
+    section = models.ForeignKey(
+        "Section",
+        verbose_name="section",
+        on_delete=models.CASCADE,
+        to_field="sectionName",
+    )
 
     def __str__(self) -> str:
-        return f"{self.date} {self.student} {self.subject} {self.status}"
+        return f"{self.date} {self.subject} {self.branch} {self.section} {self.student} {self.status}"
 
     def get_absolute_url(self):
         return reverse("Attendance_detail", kwargs={"pk": self.pk})
