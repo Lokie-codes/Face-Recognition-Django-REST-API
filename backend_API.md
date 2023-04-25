@@ -1,5 +1,6 @@
 # Documentation for the FaceMark App API.
-<b>`url`</b> = <i>` https://lokie-codes-vigilant-potato-p556jrjw6xc9rq4-8000.preview.app.github.dev/ `</i> 
+<b>`url`</b> = <i>`
+http://165.232.178.109:8000/  `</i> 
 
 ## Login Page
 ### Login User
