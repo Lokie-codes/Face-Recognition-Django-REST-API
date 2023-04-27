@@ -1,6 +1,6 @@
 # Documentation for the FaceMark App API.
 <b>`url`</b> = <i>`
-http://165.232.178.109:8000/  `</i> 
+http://facemark.me:8000/  `</i> 
 
 ## Login Page
 ### Login User
