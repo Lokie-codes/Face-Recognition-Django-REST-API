@@ -25,7 +25,7 @@ Input
 
 ## Image Preview Page
 ### Send Image
-<b>POST</b>  `url`/face/present/<br>
+<b>POST</b>  `url`/face/recognise/<br>
 Input
 "image": "path/to/image/image.jpg"<br>
 Output <br>
