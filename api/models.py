@@ -105,7 +105,9 @@ class Subject(models.Model):
 
 
 def deleteRepresentationFile():
-    os.remove(f"db_path/representations_vgg_face.pkl")
+    # check if file exists
+    if os.path.exists(f"db_path/representations_vgg_face.pkl"):
+        os.remove(f"db_path/representations_vgg_face.pkl")
 
 
 def renameImagePath(instance, filename):
