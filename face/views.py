@@ -5,10 +5,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from retinaface import RetinaFace
 from deepface import DeepFace
-from matplotlib import pyplot as plt
-from random import randint
-# from rest_framework.generics import GenericAPIView
-# Create your views here.
+from PIL import Image
+
 @api_view(["GET"])
 def faceOverview(request):
     """
@@ -50,25 +48,22 @@ class FaceRecognise(APIView):
     """
     Recognise the multiple faces present in the image and compare them to database
     """
-    def post(self, request):
-        # image = request.data["image"]
-        # detect all the faces present in the image
-        # faces = RetinaFace.extract_faces(img_path=image)
-        # for face in faces:
-        #     # save the faces to a temporary directory
-        #     plt.imsave(f"temp/{randint(0, 1000000)}.jpg", face)
-        # # load each image in temporary directory
-        # folder_dir = "/home/lox/finalyearproject/backend/temp"
-        # listImg = list()
-        # result = list()
-        # for images in os.listdir(folder_dir):
-        #     if images.endswith(".jpg"):
-        #         listImg.append(f"temp/{images}")
+    def post(self, request):      
 
-        # for img in listImg:
-        #     result = DeepFace.find(img_path=img, db_path="db_path", enforce_detection=False)
-        #     print(result)
-        image = request.data["image"]
+        # recieve image file from post request
+        byteImage = request.data.get("image")
+        print("byteImage Type",type(byteImage))
+        print("byteImage ", byteImage)
+        # convert byte file to  image 
+        image = Image.open(byteImage)
+        print("image Type",type(image))
+        print("image ", image)
+        # save image to local storage
+        image.save("image.jpeg")
+        # get the path of the image
+        image = os.path.abspath("image.jpeg")
+        print("image path", image)
+
         result = DeepFace.find(img_path=image, db_path="db_path")
         usns = list()
         for ins in result[0]["identity"]:
