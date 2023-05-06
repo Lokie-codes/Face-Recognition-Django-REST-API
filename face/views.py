@@ -49,21 +49,10 @@ class FaceRecognise(APIView):
     Recognise the multiple faces present in the image and compare them to database
     """
     def post(self, request):      
-
-        # recieve image file from post request
         byteImage = request.data.get("image")
-        print("byteImage Type",type(byteImage))
-        print("byteImage ", byteImage)
-        # convert byte file to  image 
         image = Image.open(byteImage)
-        print("image Type",type(image))
-        print("image ", image)
-        # save image to local storage
         image.save("image.jpeg")
-        # get the path of the image
         image = os.path.abspath("image.jpeg")
-        print("image path", image)
-
         result = DeepFace.find(img_path=image, db_path="db_path")
         usns = list()
         for ins in result[0]["identity"]:
