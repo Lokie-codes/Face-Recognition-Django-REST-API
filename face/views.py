@@ -61,18 +61,3 @@ class FaceRecognise(APIView):
             usns.append(usn)
         return Response({"result": usns})
 
-
-class FacePresent(APIView):
-    pass
-
-
-class FaceAbsent(APIView):
-    pass
-
-
-class FacePresentCount(APIView):
-    pass
-
-
-class FaceAbsentCount(APIView):
-    pass
