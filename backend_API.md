@@ -1,5 +1,6 @@
 # Documentation for the FaceMark App API.
-<b>`url`</b> = <i>` https://lokie-codes-vigilant-potato-p556jrjw6xc9rq4-8000.preview.app.github.dev/ `</i> 
+<b>`url`</b> = <i>`
+http://facemark.me `</i> 
 
 ## Login Page
 ### Login User
@@ -24,7 +25,7 @@ Input
 
 ## Image Preview Page
 ### Send Image
-<b>POST</b>  `url`/face/present/<br>
+<b>POST</b>  `url`/face/recognise/<br>
 Input
 "image": "path/to/image/image.jpg"<br>
 Output <br>
