@@ -43,6 +43,7 @@ def apiOverview(request):
         "Attendance List": "/attendance/",
         "Attendance Detail View": "/attendance/<str:pk>/",
         "Send Email": "/send_mail/",
+        "Subject Date Attendance List": "/attendance/<str:date>/<str:subject>/",
     }
     return Response(api_urls)
 
@@ -147,3 +148,16 @@ class AttendanceDetail(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = (IsAuthenticated,)
     queryset = Attendance.objects.all()
     serializer_class = AttendanceSerializer
+
+class SubjectDateAttendanceList(generics.ListAPIView):
+    # permission_classes = (IsAuthenticated,)
+    serializer_class = AttendanceSerializer
+    def get_queryset(self):
+        subject = self.kwargs['subject']
+        date = self.kwargs['date']
+        return Attendance.objects.filter(subject=subject, date=date)
+    
+# class SubjectDateAttendanceDetail(generics.RetrieveUpdateDestroyAPIView):
+#     # permission_classes = (IsAuthenticated,)
+#     queryset = Attendance.objects.all()
+#     serializer_class = AttendanceSerializer

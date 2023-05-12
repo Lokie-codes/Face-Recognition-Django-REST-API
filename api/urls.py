@@ -17,6 +17,7 @@ from .views import (
     StudentDetail,
     SubjectDetail,
     AttendanceDetail,
+    SubjectDateAttendanceList
 )
 from .send_mail import send_mail_to_parent
 
@@ -37,4 +38,5 @@ urlpatterns = [
     path("attendance/", AttendanceList.as_view(), name="attendance-list"),
     path("attendance/<str:pk>/", AttendanceDetail.as_view(), name="attendance-detail"),
     path("send_mail/", send_mail_to_parent, name="send-mail"),
+    path("attendance/<str:date>/<str:subject>", SubjectDateAttendanceList.as_view(), name="subject-attendance-list"),
  ]

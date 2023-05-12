@@ -199,14 +199,11 @@ class Attendance(models.Model):
         to_field="sectionName",
     )
 
+
     def __str__(self) -> str:
         return f"{self.date} {self.subject} {self.branch} {self.section} {self.student} {self.status}"
 
-    def get_absolute_url(self):
-        """
-        Returns the url to access a particular instance of Attendance.        
-        """
-        return reverse("Attendance_detail", kwargs={"pk": self.student})
+
 
     class Meta:
         verbose_name = "Attendance"
