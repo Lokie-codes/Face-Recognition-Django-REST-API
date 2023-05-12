@@ -107,6 +107,7 @@ class Subject(models.Model):
 def deleteRepresentationFile():
     # check if file exists
     if os.path.exists(f"db_path/representations_vgg_face.pkl"):
+        print("Deleting Previous Representations File")
         os.remove(f"db_path/representations_vgg_face.pkl")
 
 

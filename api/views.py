@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-
+from .models import deleteRepresentationFile
 from .models import (
     Course,
     Branch,
@@ -99,12 +99,30 @@ class StudentList(generics.ListCreateAPIView):
     # permission_classes = (IsAuthenticated,)
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    # if the method is create
+    def post(self, request, *args, **kwargs):
+        # call deleteRepresentationFile function to delete the representations_vgg_face.pkl file
+        deleteRepresentationFile()
+        return self.create(request, *args, **kwargs)
 
 
 class StudentDetail(generics.RetrieveUpdateDestroyAPIView):
     # permission_classes = (IsAuthenticated,)
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+    # if the method is delete
+    def delete(self, request, *args, **kwargs):
+        # call deleteRepresentationFile function to delete the representations_vgg_face.pkl file
+        deleteRepresentationFile()
+        return self.destroy(request, *args, **kwargs)
+    
+    # if the method is put
+    def put(self, request, *args, **kwargs):
+        # call deleteRepresentationFile function to delete the representations_vgg_face.pkl file
+        deleteRepresentationFile()
+        return self.update(request, *args, **kwargs)
+    
 
 
 class SubjectList(generics.ListCreateAPIView):
