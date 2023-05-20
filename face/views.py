@@ -68,5 +68,8 @@ class FaceRecognise(APIView):
                 usns.append(usn)
         except:
             print(f"Single Face Detected!")
-        return Response({"result": usns})
+            # for single face
+            print(result)
+        result = [*set(usns)]
+        return Response({"result": result})
 
