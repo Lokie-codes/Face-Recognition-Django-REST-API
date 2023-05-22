@@ -11,8 +11,6 @@ image = "/home/lox/finalyearproject/backend/images/all.png"
 result = DeepFace.find(
     img_path=image,
     db_path="/home/lox/finalyearproject/backend/db_path",
-    model_name="Facenet512",
-    detector_backend="retinaface"
 )
 print(result)
 usns = list()

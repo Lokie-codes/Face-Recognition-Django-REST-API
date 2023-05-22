@@ -54,22 +54,27 @@ class FaceRecognise(APIView):
         image.save("image.jpeg")
         image = os.path.abspath("image.jpeg")
         result = DeepFace.find(img_path=image, db_path="db_path")
+        # result is a list of dataframes
         # print(f"Result is type : {type(result)}")
         usns = list()
+        print(f"result - {result}")
         try:
             # for multiple faces
             for rep in result:
-                # print(rep)
-                # print(rep.iloc[0])
+                # rep is a set of dataframes
+                if rep.empty:
+                    # if dataframe is empty
+                    continue
                 row = rep.iloc[0]
                 # print(row["identity"]) 
                 # strip usn from row["identity"]
                 usn = row["identity"].strip("/home/lox/finalyearproject/backend/db_path/ .jpeg .jpg .png")
                 usns.append(usn)
         except:
-            print(f"Single Face Detected!")
+            # print(f"Single Face Detected!")
             # for single face
-            print(result)
-        result = [*set(usns)]
-        return Response({"result": result})
+            print(f"Some Exception has occured")
+            
+        # result = [*set(usns)]
+        return Response({"result": usns})
 
